@@ -25,7 +25,7 @@ export class GitHubHelper {
     if (token) {
       options.auth = `${token}`
     }
-    options.baseUrl = process.env['GITHUB_API_URL'] || 'https://api.github.com'
+    options.baseUrl = (process.env['SERVER_URL_OVERRIDE'] ? process.env['SERVER_URL_OVERRIDE'] + '/api/v3' : '') || 'https://api.github.com'
     this.octokit = new Octokit(options)
   }
 

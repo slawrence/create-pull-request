@@ -951,7 +951,7 @@ class GitHubHelper {
         if (token) {
             options.auth = `${token}`;
         }
-        options.baseUrl = process.env['GITHUB_API_URL'] || 'https://api.github.com';
+        options.baseUrl = (process.env['SERVER_URL_OVERRIDE'] ? process.env['SERVER_URL_OVERRIDE'] + '/api/v3' : '') || 'https://api.github.com';
         this.octokit = new octokit_client_1.Octokit(options);
     }
     parseRepository(repository) {
@@ -1225,7 +1225,7 @@ exports.getRepoPath = getRepoPath;
 function getRemoteDetail(remoteUrl) {
     // Parse the protocol and github repository from a URL
     // e.g. HTTPS, peter-evans/create-pull-request
-    const githubUrl = process.env['GITHUB_SERVER_URL'] || 'https://github.com';
+    const githubUrl = process.env['SERVER_URL_OVERRIDE'] || 'https://github.com';
     const githubServerMatch = githubUrl.match(/^https?:\/\/(.+)$/i);
     if (!githubServerMatch) {
         throw new Error('Could not parse GitHub Server name');
